@@ -2,7 +2,6 @@ const bcrypt = require("bcryptjs");
 const Student = require("../Models/StudentModel");
 
 //Student Registration
-
 const student_registration = async (req, res) => {
   try {
     const salt = await bcrypt.genSalt(10);
