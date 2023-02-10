@@ -1,21 +1,38 @@
 const express=require('express');
-const dotenv=require('dotenv');
-require("dotenv").config();
+const dotenv = require("dotenv");
 const app=express();
-require('./model/db');
-const bodyParser=require('body-parser')
-app.use(bodyParser.json( ));
-const path=require("path");
-dotenv.config({path:"./.env"})
 
+dotenv.config({path:"config/.env"})
+const Student=require('./Models/StudentModel')
+const Admin=require("./Models/adminModel")
+const Movement=require("./Models/movementTime")
+const Hostel=require("./Models/hosteltype")
+const Rooms=require("./Models/rooms")
+
+
+const sequelize=require('./util/db')
+app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
+try {
+    sequelize.sync({ force:false})
+    console.log("synchronized") 
+  } 
+catch (error) {
+    console.error(error)
+  }
+
+Student.hasOne(Movement);
+Movement.belongsTo(Student);
+
+
+
+
 //router import
- const apiroute=require('./Router/route')
+const apiroute=require('./router/route');
 app.use("/api",apiroute);
 
-//connection
-const port = process.env.port || 3000;
-const server = app.listen(port, () => {
-    console.log(`server running  at port no ${port}`);
-})
+//serverconnection
+app.listen(process.env.PORT, ()=>{
+  console.log(`server is running successfully`)
+});
