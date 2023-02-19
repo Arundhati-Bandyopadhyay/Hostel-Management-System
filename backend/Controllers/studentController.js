@@ -142,9 +142,6 @@ const student_delete=async(req,res)=>{
 
 
 
-
-
-
 module.exports = {
   student_registration,
   student_login,
