@@ -2,7 +2,9 @@ const express=require("express");
 const router=express.Router();
 const admincontroller=require("../Controllers/adminController");
 const studentcontroller=require("../Controllers/studentController")
-const movementcontroller=require("../Controllers/movementController")
+const movementcontroller=require("../Controllers/movementController");
+const roomcontrolller = require("../Controllers/roomcontroller");
+const studentComplaintcontroller=require("../Controllers/studentcomplaintcontroller")
 
 //adminroute
 router.route("/adminregister").post(admincontroller.admin_registration);
@@ -20,5 +22,12 @@ router.route("/getAllStudents").get(studentcontroller.student_details)
 router.route("/moveOuttime").post(movementcontroller.MoveOutTime)
 router.route("/moveIntime").post(movementcontroller.MoveInTime)
 router.route("/getAllMovements").get(movementcontroller.GetAllMovement)
+
+//roomdetailsroute
+router.route("/getRoomDetails").post(roomcontrolller.room_details)
+router.route("/getAllRoomDetails").post(roomcontrolller.all_room_details)
+
+//complaint
+router.route("/getcomplaints").post(studentComplaintcontroller.Student_Complaint)
 
 module.exports=router;

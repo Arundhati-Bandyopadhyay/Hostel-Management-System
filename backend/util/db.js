@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 
-
   const sequelize = new Sequelize('hosteldb', 'sqluser', 'Arundhati@58', {
     dialect: 'mysql',
+    logging: false,
     host: 'localhost'
   });
   

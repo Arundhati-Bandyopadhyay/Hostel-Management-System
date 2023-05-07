@@ -50,6 +50,7 @@ const student_registration = async (req, res) => {
       var msg = "Student is registered";
       res.status(200).json({ alertMsg: msg });
     }
+  
   } catch (err) {
     res.status(400).json({
       success: false,

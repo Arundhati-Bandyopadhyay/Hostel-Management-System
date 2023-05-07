@@ -9,6 +9,31 @@ const Rooms = sequelize.define('room', {
         allowNull: false,
         primaryKey: true,
       },
+
+  chair:{
+    type: Sequelize.INTEGER,
+        allowNull: true,
+  },
+  table:{
+    type: Sequelize.INTEGER,
+        allowNull: false,
+  },
+  bed:{
+    type: Sequelize.INTEGER,
+        allowNull: false,
+  },
+  wardrobe:{
+    type: Sequelize.INTEGER,
+        allowNull: false,
+  },
+  light:{
+    type: Sequelize.INTEGER,
+        allowNull: false,
+  },
+  fan:{
+    type: Sequelize.INTEGER,
+        allowNull: false,
+  },
   
 });
 

@@ -6,8 +6,9 @@ dotenv.config({path:"config/.env"})
 const Student=require('./Models/StudentModel')
 const Admin=require("./Models/adminModel")
 const Movement=require("./Models/movementTime")
-const Hostel=require("./Models/hosteltype")
-const Rooms=require("./Models/rooms")
+
+const StudentComplaint=require("./Models/studentscomplaint")
+
 
 
 const sequelize=require('./util/db')
@@ -24,6 +25,9 @@ catch (error) {
 
 Student.hasOne(Movement);
 Movement.belongsTo(Student);
+
+Student.hasOne(StudentComplaint);
+StudentComplaint.belongsTo(Student);
 
 
 
