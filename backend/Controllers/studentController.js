@@ -1,3 +1,4 @@
+const fs=require("fs")
 const bcrypt = require("bcryptjs");
 const Student = require("../Models/StudentModel");
 
@@ -27,6 +28,23 @@ const student_registration = async (req, res) => {
     } else if (foundStudentroll) {
       return res.status(401).json({ message: "This Roll is Already exist" });
     } else {
+
+      if (req.files || req.files.image) {
+        // Array of allowed files
+        const array_of_allowed_files = ["jpeg", "jpg"];
+  
+        // Get the extension of the uploaded file
+        const file_extension = req.files.image.name.split(".")[1];
+       
+        // Check if the uploaded file is allowed
+        if (!array_of_allowed_files.includes(file_extension)) {
+          return res.status(400).json({
+            success: false,
+            message: "Please upload jpeg, jpg only",
+          });
+        }
+      }
+
       var postData = {
         name: req.body.name,
         email: req.body.email,
@@ -44,21 +62,35 @@ const student_registration = async (req, res) => {
         pincode: req.body.pincode,
         roomNo: req.body.roomNo,
       };
-      console.log(postData);
-      const Data = await Student.create(postData);
+      await Student.create(postData);
 
-      var msg = "Student is registered";
-      res.status(200).json({ alertMsg: msg });
+      let student = await Student.findOne({ where: { email: req.body.email } })
+
+      console.log(student.id);
+
+      req.files.image.mv(`uploads/${student.id}.jpg`);
+      let imagepath = `${req.protocol}://${req.get("host")}/uploads/${student.id}.jpg`;
+      student = await Student.update({image: imagepath}, {
+        where:{
+          id : student.id
+        }
+      });
+
+      res.status(201).json({
+        success: true,
+        message:"student is registered"
+      })
+     
     }
-  
   } catch (err) {
     res.status(400).json({
       success: false,
       message: `can't register,:${err.message}`,
     });
-    console.log(err);
+
   }
 };
+
 
 //studentlogin
 
@@ -127,16 +159,20 @@ const student_details=async(req,res)=>{
 }
 
 //studentdelete
-const student_delete=async(req,res)=>{
+const student_delete = async (req, res) => {
   const data = await Student.destroy({
-      where:{
-          id:req.params.id
-      }
+    where: {
+      id: req.params.id
+    }
   });
+  fs.unlink("uploads/" + data.id + ".jpg", () => {});
   res.status(200).json({
-      "message": "Student Deleted",
-      data:data});
+    "message": "Student Deleted",
+    data: data
+  });
 }
+
+ 
 
 
 

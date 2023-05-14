@@ -24,4 +24,14 @@ const Student_Complaint = async (req, res) => {
     res.status(400).json("something is wrong");
   }
 };
-module.exports = { Student_Complaint };
+
+//getAllComplaINTS
+const Student_All_Complaint =async(req,res)=>{
+  try {
+    const roomdetails=await StudentComplaint.findAll()
+    res.status(202).json(roomdetails)
+  } catch (error) {
+    res.status(401).json("Can't find Room Details")
+  }
+}
+module.exports = { Student_Complaint,Student_All_Complaint };

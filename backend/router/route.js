@@ -5,6 +5,7 @@ const studentcontroller=require("../Controllers/studentController")
 const movementcontroller=require("../Controllers/movementController");
 const roomcontrolller = require("../Controllers/roomcontroller");
 const studentComplaintcontroller=require("../Controllers/studentcomplaintcontroller")
+const studentapplications=require("../Controllers/studentapplications")
 
 //adminroute
 router.route("/adminregister").post(admincontroller.admin_registration);
@@ -25,9 +26,12 @@ router.route("/getAllMovements").get(movementcontroller.GetAllMovement)
 
 //roomdetailsroute
 router.route("/getRoomDetails").post(roomcontrolller.room_details)
-router.route("/getAllRoomDetails").post(roomcontrolller.all_room_details)
+router.route("/getAllRoomDetails").get(roomcontrolller.all_room_details)
 
 //complaint
 router.route("/getcomplaints").post(studentComplaintcontroller.Student_Complaint)
+router.route("/getAllcomplaints").get(studentComplaintcontroller.Student_All_Complaint)
 
+//applications
+router.route("/sendApplications").post(studentapplications.student_applications)
 module.exports=router;

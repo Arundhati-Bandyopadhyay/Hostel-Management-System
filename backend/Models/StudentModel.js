@@ -73,9 +73,9 @@ const Student =sequelize.define('student', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  image: {
+  image:{
     type: Sequelize.STRING,
-    allowNull: true,
+    required: true
   },
   roomNo: {
     type: Sequelize.STRING,

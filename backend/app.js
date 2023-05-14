@@ -1,19 +1,26 @@
 const express=require('express');
 const dotenv = require("dotenv");
 const app=express();
-
+const upload = require("express-fileupload")
+const path = require("path")
 dotenv.config({path:"config/.env"})
 const Student=require('./Models/StudentModel')
 const Admin=require("./Models/adminModel")
 const Movement=require("./Models/movementTime")
 
+
 const StudentComplaint=require("./Models/studentscomplaint")
+const studentapplications=require("./Models/studentapplications")
 
 
 
 const sequelize=require('./util/db')
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
+
+app.use(upload());
+app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
+app.use("/applications", express.static(path.join(__dirname + "/applications")));
 
 try {
     sequelize.sync({ force:false})
@@ -29,6 +36,8 @@ Movement.belongsTo(Student);
 Student.hasOne(StudentComplaint);
 StudentComplaint.belongsTo(Student);
 
+Student.hasOne(studentapplications);
+studentapplications.belongsTo(Student);
 
 
 
