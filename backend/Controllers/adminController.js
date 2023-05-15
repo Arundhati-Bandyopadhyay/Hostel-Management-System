@@ -87,6 +87,8 @@ const admin_update = async (req, res) => {
     console.log(err);
   }
 };
+
+
 const admin_details=async(req,res)=>{
   try {
     const AdminDetails=await Admin.findAll()

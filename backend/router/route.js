@@ -34,4 +34,5 @@ router.route("/getAllcomplaints").get(studentComplaintcontroller.Student_All_Com
 
 //applications
 router.route("/sendApplications").post(studentapplications.student_applications)
+router.route("/getAllApplications").post(studentapplications.Student_All_Applications)
 module.exports=router;

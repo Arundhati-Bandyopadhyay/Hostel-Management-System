@@ -28,10 +28,10 @@ const Student_Complaint = async (req, res) => {
 //getAllComplaINTS
 const Student_All_Complaint =async(req,res)=>{
   try {
-    const roomdetails=await StudentComplaint.findAll()
-    res.status(202).json(roomdetails)
+    const complaintdetails=await StudentComplaint.findAll()
+    res.status(202).json(complaintdetails)
   } catch (error) {
-    res.status(401).json("Can't find Room Details")
+    res.status(401).json("Can't find complaint Details")
   }
 }
 module.exports = { Student_Complaint,Student_All_Complaint };

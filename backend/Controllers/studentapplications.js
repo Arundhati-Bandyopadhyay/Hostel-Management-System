@@ -57,4 +57,15 @@ const student_applications = async (req, res) => {
   }
 };
 
-module.exports = { student_applications };
+
+
+const Student_All_Applications =async(req,res)=>{
+  try {
+    const applicationetails=await studentapplications.findAll()
+    res.status(202).json(applicationetails)
+  } catch (error) {
+    res.status(401).json("Can't find Application Details")
+  }
+}
+
+module.exports = { student_applications ,Student_All_Applications};
